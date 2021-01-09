@@ -4,6 +4,7 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class Frame extends JFrame{
 	private BufferStrategy strat;
 	
 	
-	public static int floorheight = Toolkit.getDefaultToolkit().getScreenSize().height -50;
+
 	
 	public Frame() {
 		super("Game");
@@ -50,13 +51,18 @@ public class Frame extends JFrame{
 	
 	
 	public void draw(Graphics g) {
+		World.draw(g);
 
-		
 		
 		
 	}
 	
 	public void update(float tslf) {
+		if(Keyboard.isKeyPressed(KeyEvent.VK_ESCAPE)) {
+			System.exit(0);
+		}
+		
+		World.update();
 		
 	}
 	

@@ -4,20 +4,24 @@ package main;
 import java.awt.Toolkit;
 
 public class Main {
+	
+	public static Frame frame;
 
 	public static void main(String[] args) {
 		
 		
-		Frame frame = new Frame();
+		frame = new Frame();
 		
 		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		frame.setDefaultCloseOperation(3);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
-		frame.setUndecorated(true);
+		frame.setUndecorated(false);
 		frame.setVisible(true);
 		
 		frame.makestrat();
+		
+		World.load();
 		
 		
 		long lastFrame = System.currentTimeMillis();

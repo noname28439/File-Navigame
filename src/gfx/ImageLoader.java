@@ -10,10 +10,11 @@ import javax.imageio.ImageIO;
 public class ImageLoader {
 
 	public static BufferedImage loadImage(String name) {
+		System.out.println("Loading: "+name+"...");
 		try {
 			return ImageIO.read(ImageLoader.class.getClassLoader().getResourceAsStream("gfx/" + name+ ".png"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			//e.printStackTrace();
 		}
 		return null;
 	}
