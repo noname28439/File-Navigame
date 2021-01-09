@@ -13,9 +13,16 @@ import gfx.ImageLoader;
 
 public class FileBox {
 
+	public static BufferedImage break1 = ImageLoader.loadImage("Break_1");
+	public static BufferedImage break2 = ImageLoader.loadImage("Break_2");
+	public static BufferedImage break3 = ImageLoader.loadImage("Break_3");
+	
+	
+	
 	File file;
 	int x, y;
 	int size = 100, drawSize;
+	int damage = 0;
 	String name = "";
 	String extension = "";
 	BufferedImage skin;
@@ -64,6 +71,12 @@ public class FileBox {
 			Player.grabbed=this;
 		}
 		
+		if(mouseOver&&Keyboard.getButton()==2&&reachedByPlayer) {
+			Keyboard.button=-1;
+			if(!file.isDirectory())
+				damage++;
+		}
+		
 		if(file.isDirectory()) {
 			g.setColor(new Color(204, 0, 255));
 			if(mouseOver&&Keyboard.getButton()==1&&reachedByPlayer) {
@@ -95,6 +108,25 @@ public class FileBox {
 		else
 			g.drawString(name, x, y);
 		
+		
+		switch (damage) {
+			case 1:
+				g.drawImage(break1, x, y,drawSize, drawSize,  null);
+				break;
+			case 2:
+				g.drawImage(break2, x, y,drawSize, drawSize, null);
+				break;
+			case 3:
+				g.drawImage(break3, x, y,drawSize, drawSize, null);
+				break;
+			case 4:
+				file.delete();
+				World.szeneFiles.remove(this);
+				break;
+	
+			default:
+				break;
+		}
 		
 		
 		
