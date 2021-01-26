@@ -30,8 +30,6 @@ public class Frame extends JFrame{
 		
 	
 		
-		
-		
 	}
 	
 	public void makestrat() {

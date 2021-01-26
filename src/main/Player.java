@@ -1,10 +1,16 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import javax.swing.plaf.FileChooserUI;
 import javax.transaction.xa.Xid;
 import javax.xml.xpath.XPath;
 
@@ -64,7 +70,18 @@ public class Player {
 			grabbed.y = y+size/2;
 		}
 		if(Keyboard.isKeyPressed(KeyEvent.VK_SHIFT)) {
-			grabbed=null;
+			if(grabbed!=null) {
+				if(!World.szeneContainsFileNamed(grabbed.name)) {
+				String createPath = FileManager.currentFilePath+"\\"+grabbed.file.getName();
+				try {
+					Files.copy(Paths.get(grabbed.file.getAbsolutePath()), Paths.get(createPath));
+				} catch (IOException | java.lang.NullPointerException e) {e.printStackTrace();}
+				World.szeneFiles.add(new FileBox(new File(createPath), grabbed.x, grabbed.y));
+				grabbed=null;
+				}else {
+					grabbed = null;
+				}
+			}
 		}
 		
 		boolean onGround = false;

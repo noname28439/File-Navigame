@@ -68,7 +68,8 @@ public class FileBox {
 		
 		if(mouseOver&&Keyboard.getButton()==3&&reachedByPlayer) {
 			Keyboard.button=-1;
-			Player.grabbed=this;
+			if(!file.isDirectory())
+				Player.grabbed = new FileBox(file, x, y);
 		}
 		
 		if(mouseOver&&Keyboard.getButton()==2&&reachedByPlayer) {

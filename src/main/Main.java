@@ -15,7 +15,7 @@ public class Main {
 		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		frame.setDefaultCloseOperation(3);
 		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setUndecorated(false);
 		frame.setVisible(true);
 		
