@@ -45,6 +45,11 @@ public class FileBox {
 		}else {
 			drawSize=size;
 		}
+		setSkin();
+		
+	}
+	
+	void setSkin() {
 		if(file.isDirectory()) {
 			if(file.getName().equalsIgnoreCase(".."))
 				skin = FileImageManager.getFileImage("..");
@@ -53,9 +58,16 @@ public class FileBox {
 		}else
 			if(!extension.equalsIgnoreCase(""))
 				skin = FileImageManager.getFileImage(extension);
-		
 	}
 	
+	public void rename(String newName) {
+		name = newName;
+		if(name.split("\\.").length>=2)
+			extension = name.split("\\.")[name.split("\\.").length-1];
+		
+		setSkin();
+		
+	}
 	
 	public void draw(Graphics g) {
 		

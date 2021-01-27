@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import javax.swing.JEditorPane;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.FileChooserUI;
 import javax.transaction.xa.Xid;
 import javax.xml.xpath.XPath;
@@ -72,7 +74,7 @@ public class Player {
 		if(Keyboard.isKeyPressed(KeyEvent.VK_SHIFT)) {
 			if(grabbed!=null) {
 				if(!World.szeneContainsFileNamed(grabbed.name)) {
-				String createPath = FileManager.currentFilePath+"\\"+grabbed.file.getName();
+				String createPath = FileManager.currentFilePath+"\\"+grabbed.name;
 				try {
 					Files.copy(Paths.get(grabbed.file.getAbsolutePath()), Paths.get(createPath));
 				} catch (IOException | java.lang.NullPointerException e) {e.printStackTrace();}
@@ -83,6 +85,16 @@ public class Player {
 				}
 			}
 		}
+		
+		if(Keyboard.isKeyPressed(KeyEvent.VK_ENTER)) {
+			Keyboard.keys[KeyEvent.VK_ENTER] = false;
+			if(grabbed!=null) {
+				String newName = new JOptionPane().showInputDialog("Filename: ");
+				grabbed.rename(newName);
+			}	
+		}
+		
+		
 		
 		boolean onGround = false;
 		
