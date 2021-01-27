@@ -13,13 +13,12 @@ public class World {
 	
 	public static ArrayList<FileBox> szeneFiles = new ArrayList<>();
 	
-	public static boolean szeneContainsFileNamed(String searchName) {
-		boolean isInSzene = false;
+	public static FileBox GetFileBoxByFileNamed(String searchName) {
 		for(FileBox cf : szeneFiles) {
 			if(cf.name.equalsIgnoreCase(searchName))
-				isInSzene = true;
+				return cf;
 		}
-		return isInSzene;
+		return null;
 	}
 	
 	public static void load() {
@@ -63,8 +62,8 @@ public class World {
 		
 		Player.draw(g);
 		
-		g.setColor(Color.black);
-		g.drawString("Dir: "+FileManager.currentFilePath + " ==> "+szeneFiles.toString(), 100, 100);
+		//g.setColor(Color.black);
+		//g.drawString("Dir: "+FileManager.currentFilePath, 100, 100);
 		
 	}
 	

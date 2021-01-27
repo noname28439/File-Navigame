@@ -73,7 +73,7 @@ public class Player {
 		}
 		if(Keyboard.isKeyPressed(KeyEvent.VK_SHIFT)) {
 			if(grabbed!=null) {
-				if(!World.szeneContainsFileNamed(grabbed.name)) {
+				if(World.GetFileBoxByFileNamed(grabbed.name)==null) {
 				String createPath = FileManager.currentFilePath+"\\"+grabbed.name;
 				try {
 					Files.copy(Paths.get(grabbed.file.getAbsolutePath()), Paths.get(createPath));
@@ -81,6 +81,8 @@ public class Player {
 				World.szeneFiles.add(new FileBox(new File(createPath), grabbed.x, grabbed.y));
 				grabbed=null;
 				}else {
+					World.GetFileBoxByFileNamed(grabbed.name).x = x+((size-grabbed.drawSize)/2);
+					World.GetFileBoxByFileNamed(grabbed.name).y = y+size/2;
 					grabbed = null;
 				}
 			}
