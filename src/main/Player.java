@@ -16,6 +16,7 @@ import javax.swing.plaf.FileChooserUI;
 import javax.transaction.xa.Xid;
 import javax.xml.xpath.XPath;
 
+import entities.Shuricane;
 import gfx.ImageLoader;
 
 public class Player {
@@ -28,14 +29,25 @@ public class Player {
 	static int maxXspeed = 10;
 	
 	static BufferedImage skin = ImageLoader.loadImage("Player");
+	static BufferedImage skinFreezed = ImageLoader.loadImage("PlayerFreezed");
 	
 	public static FileBox grabbed = null;
 	
+	public static int freezetime = 0;
+	
+	public static int shuricanes = 0;
 	
 	public static void draw(Graphics g) {
+		
+		for(int i = 0; i<shuricanes; i++)
+			g.drawImage(Shuricane.skin, i*25+20, 50, 20, 20,  null);
+		
 		g.setColor(Color.BLACK);
 		//g.drawRect( x, y, size, size);
-		g.drawImage(skin, x, y, size, size,  null);
+		if(freezetime>0)
+			g.drawImage(skinFreezed, x, y, size, size,  null);
+		else
+			g.drawImage(skin, x, y, size, size,  null);
 		
 	}
 	
@@ -63,6 +75,22 @@ public class Player {
 	static boolean onBox = false;
 	
 	public static void update() {
+		
+		if(Keyboard.getButton()==3&&shuricanes>0&&!(freezetime>0)) {
+			Keyboard.button = -1;
+			
+			Shuricane projectile = new Shuricane(x+size/2, y+size/2, false);
+			
+			projectile.xspeed = -((x+size/2)-Keyboard.getMousex())/20;
+			projectile.yspeed = -((y+size/2)-Keyboard.getMousey())/20;
+			
+			shuricanes--;
+			
+			World.entities.add(projectile);
+			
+		}
+		
+		
 		x+=xspeed;
 		y+=yspeed;
 		
@@ -112,6 +140,13 @@ public class Player {
 				xspeed=-maxXspeed;
 		}
 		
+		
+		if(freezetime>0) {
+			freezetime--;
+			Keyboard.keys[KeyEvent.VK_SPACE]=false;
+			Keyboard.keys[KeyEvent.VK_A]=false;
+			Keyboard.keys[KeyEvent.VK_D]=false;
+		}
 		
 		
 		

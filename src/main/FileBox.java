@@ -3,6 +3,7 @@ package main;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,10 +20,12 @@ public class FileBox {
 	
 	
 	
-	File file;
-	int x, y;
-	int size = 100, drawSize;
-	int damage = 0;
+	public File file;
+	public int x;
+	public int y;
+	int size = 100;
+	public int drawSize;
+	public int damage = 0;
 	String name = "";
 	String extension = "";
 	BufferedImage skin;
@@ -45,6 +48,8 @@ public class FileBox {
 		}else {
 			drawSize=size;
 		}
+		if(drawSize<20)
+			drawSize = 30;
 		setSkin();
 		
 	}
@@ -78,8 +83,8 @@ public class FileBox {
 		boolean mouseOver = Collision.rectToRect(x, y, drawSize, drawSize, Keyboard.getMousex(), Keyboard.getMousey(), 1, 1);
 		boolean reachedByPlayer = Collision.circleToRect(Player.x, Player.y, 250, x, y, drawSize, drawSize);
 		
-		if(mouseOver&&Keyboard.getButton()==3&&reachedByPlayer) {
-			Keyboard.button=-1;
+		if(mouseOver&&Keyboard.isKeyPressed(KeyEvent.VK_C)&&reachedByPlayer) {
+			Keyboard.keys[KeyEvent.VK_C] = false;
 			if(!file.isDirectory())
 				Player.grabbed = new FileBox(file, x, y);
 		}

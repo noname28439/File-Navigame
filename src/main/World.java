@@ -5,6 +5,11 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.Random;
+
+import entities.Entity;
+import entities.Shuricane;
+import entities.Slime;
+
 import java.util.ArrayList;
 
 public class World {
@@ -12,6 +17,8 @@ public class World {
 	public static int floorheight = 100;
 	
 	public static ArrayList<FileBox> szeneFiles = new ArrayList<>();
+	
+	public static ArrayList<Entity> entities = new ArrayList<>();
 	
 	public static FileBox GetFileBoxByFileNamed(String searchName) {
 		for(FileBox cf : szeneFiles) {
@@ -25,7 +32,14 @@ public class World {
 		ArrayList<File> env = FileManager.getFiles();
 		
 		for(int i = 0; i<env.size();i++) {
-			szeneFiles.add(new FileBox(env.get(i), new Random().nextInt(Main.frame.getWidth()), new Random().nextInt(Main.frame.getHeight())));
+			int spawnx = new Random().nextInt(Main.frame.getWidth());
+			int spawny =  new Random().nextInt(Main.frame.getHeight());
+			
+			System.err.println(env.get(i).getName().toLowerCase());
+			if(env.get(i).getName().toLowerCase().contains("filenavigame")) {
+				entities.add(new Slime(spawnx, spawny));
+			}
+			szeneFiles.add(new FileBox(env.get(i), spawnx,spawny));
 		}
 		szeneFiles.add(new FileBox(new File(".."), new Random().nextInt(Main.frame.getWidth()-100), new Random().nextInt(Main.frame.getHeight())));
 	}
@@ -37,8 +51,19 @@ public class World {
 			
 		}
 		ArrayList<File> env = FileManager.getFiles();
+		
 		for(int i = 0; i<env.size();i++) {
-			szeneFiles.add(new FileBox(env.get(i), new Random().nextInt(Main.frame.getWidth()-100), new Random().nextInt(Main.frame.getHeight())));
+			int spawnx = new Random().nextInt(Main.frame.getWidth());
+			int spawny =  new Random().nextInt(Main.frame.getHeight());
+			
+			if(env.get(i).getName().toLowerCase().contains("filenavigame")) {
+				for(int ii = 0; ii<new Random().nextInt(3)+1;ii++)
+					entities.add(new Slime(spawnx, spawny));
+			}
+			szeneFiles.add(new FileBox(env.get(i), spawnx,spawny));
+			if(new Random().nextInt(20)==0) {		//Random: ~500
+				entities.add(new Shuricane( new Random().nextInt(Main.frame.getWidth()-100), new Random().nextInt(Main.frame.getHeight()), true));
+			}
 		}
 		szeneFiles.add(new FileBox(new File(".."), new Random().nextInt(Main.frame.getWidth()-100), new Random().nextInt(Main.frame.getHeight())));
 	}
@@ -56,6 +81,11 @@ public class World {
 		for(int i = 0; i<szeneFiles.size();i++) {
 			szeneFiles.get(i).draw(g);
 		}
+		
+		for(int i = 0; i<entities.size();i++) {
+			entities.get(i).draw(g);
+		}
+		
 		if(Player.grabbed!=null)
 			Player.grabbed.draw(g);
 		
@@ -75,9 +105,18 @@ public class World {
 			Keyboard.keys[KeyEvent.VK_F5]=false;
 			changeDirectory("");
 		}
+		
+		if(Keyboard.isKeyPressed(KeyEvent.VK_F2)) {
+			Keyboard.keys[KeyEvent.VK_F2]=false;
+			entities.add(new Slime(100, 100));
+		}
 			
 		
 		Player.update();
+		
+		for(int i = 0; i<entities.size();i++) {
+			entities.get(i).update();
+		}
 		
 	}
 	
