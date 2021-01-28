@@ -62,7 +62,7 @@ public class Shuricane extends Entity{
 		
 		if(!flying)
 			if(Collision.rectToRect(x, y, size, size, Player.x, Player.y, Player.size, Player.size)) {
-				Player.shuricanes+=20;
+				Player.shuricanes+=5;
 				World.entities.remove(this);
 			}
 				

@@ -20,6 +20,8 @@ public class World {
 	
 	public static ArrayList<Entity> entities = new ArrayList<>();
 	
+	public static boolean drawNames = true;
+	
 	public static FileBox GetFileBoxByFileNamed(String searchName) {
 		for(FileBox cf : szeneFiles) {
 			if(cf.name.equalsIgnoreCase(searchName))
@@ -99,6 +101,10 @@ public class World {
 	
 	public static void update() {
 		
+		if(Keyboard.isKeyPressed(KeyEvent.VK_N)) {
+			Keyboard.keys[KeyEvent.VK_N]=false;
+			drawNames=!drawNames;
+		}
 		
 		
 		if(Keyboard.isKeyPressed(KeyEvent.VK_F5)) {

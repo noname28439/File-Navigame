@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
+import entities.Slime;
 import gfx.FileImageManager;
 import gfx.ImageLoader;
 
@@ -114,13 +115,24 @@ public class FileBox {
 			}
 		}
 		
+		if(file.getName().toLowerCase().contains("filenavigame")) {
+			g.drawImage(Slime.skin, x, y-(int)(drawSize*0.5),drawSize, drawSize, null);
+		}
+		
 		g.drawImage(skin, x, y, drawSize, drawSize, null);
 		//g.fillRect(x, y, drawSize, drawSize);
-		if(mouseOver&&reachedByPlayer)
+		if(mouseOver&&reachedByPlayer) {
 			g.setColor(Color.RED);
-		else
+			g.drawRect(x, y, drawSize, drawSize);
+		}else {
 			g.setColor(Color.black);
-		g.drawRect(x, y, drawSize, drawSize);
+			//g.drawRect(x, y, drawSize, drawSize);
+		}
+			
+		
+			
+		
+		if(World.drawNames)
 		if(size>100)
 			g.drawString(name+"("+size+")", x, y);
 		else
@@ -145,6 +157,7 @@ public class FileBox {
 			default:
 				break;
 		}
+		
 		
 		
 		

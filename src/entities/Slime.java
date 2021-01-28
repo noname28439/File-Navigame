@@ -36,7 +36,7 @@ public class Slime extends Entity{
 	static int maxXspeed = 10;
 	
 	
-	static BufferedImage skin = ImageLoader.loadImage("Entity_SlimeStacked_");
+	public static BufferedImage skin = ImageLoader.loadImage("Entity_SlimeStacked_");
 	static ImageRotator skinRotator = new ImageRotator(skin);
 	
 	
@@ -101,7 +101,7 @@ public class Slime extends Entity{
 			switch (choice) {
 			case 0:
 				uptime += new Random().nextInt(60);
-				if(new Random().nextInt(3)==1) {
+				if(new Random().nextInt(3)==1&&!spin) {
 					spin = true;
 					spinDirectionRight = new Random().nextBoolean();
 					canDamageFileBox = true;
