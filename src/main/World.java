@@ -34,8 +34,8 @@ public class World {
 		ArrayList<File> env = FileManager.getFiles();
 		
 		for(int i = 0; i<env.size();i++) {
-			int spawnx = new Random().nextInt(Main.frame.getWidth());
-			int spawny =  new Random().nextInt(Main.frame.getHeight());
+			int spawnx = new Random().nextInt(Main.frame.getWidth()-100);
+			int spawny =  new Random().nextInt(Main.frame.getHeight()-floorheight);
 			
 			System.err.println(env.get(i).getName().toLowerCase());
 			if(env.get(i).getName().toLowerCase().contains("filenavigame")) {
@@ -43,7 +43,7 @@ public class World {
 			}
 			szeneFiles.add(new FileBox(env.get(i), spawnx,spawny));
 		}
-		szeneFiles.add(new FileBox(new File(".."), new Random().nextInt(Main.frame.getWidth()-100), new Random().nextInt(Main.frame.getHeight())));
+		szeneFiles.add(new FileBox(new File(".."), new Random().nextInt(Main.frame.getWidth()-100), new Random().nextInt(Main.frame.getHeight()-floorheight)));
 	}
 	
 	public static void changeDirectory(String change) {
@@ -55,8 +55,8 @@ public class World {
 		ArrayList<File> env = FileManager.getFiles();
 		
 		for(int i = 0; i<env.size();i++) {
-			int spawnx = new Random().nextInt(Main.frame.getWidth());
-			int spawny =  new Random().nextInt(Main.frame.getHeight());
+			int spawnx = new Random().nextInt(Main.frame.getWidth()-100);
+			int spawny =  new Random().nextInt(Main.frame.getHeight()-floorheight);
 			
 			if(env.get(i).getName().toLowerCase().contains("filenavigame")) {
 				for(int ii = 0; ii<new Random().nextInt(3)+1;ii++)
@@ -64,10 +64,10 @@ public class World {
 			}
 			szeneFiles.add(new FileBox(env.get(i), spawnx,spawny));
 			if(new Random().nextInt(20)==0) {		//Random: ~500
-				entities.add(new Shuricane( new Random().nextInt(Main.frame.getWidth()-100), new Random().nextInt(Main.frame.getHeight()), true));
+				entities.add(new Shuricane( new Random().nextInt(Main.frame.getWidth()-100), new Random().nextInt(Main.frame.getHeight()-floorheight), true));
 			}
 		}
-		szeneFiles.add(new FileBox(new File(".."), new Random().nextInt(Main.frame.getWidth()-100), new Random().nextInt(Main.frame.getHeight())));
+		szeneFiles.add(new FileBox(new File(".."), new Random().nextInt(Main.frame.getWidth()-100), new Random().nextInt(Main.frame.getHeight()-floorheight)));
 	}
 	
 	
@@ -97,6 +97,11 @@ public class World {
 		//g.setColor(Color.black);
 		//g.drawString("Dir: "+FileManager.currentFilePath, 100, 100);
 		
+		//GUI
+		for(int i = 0; i<Player.hp; i++) {
+			g.setColor(Color.RED);
+			g.fillRect(i*20+50, 50, 15, 15);
+		}
 	}
 	
 	public static void update() {

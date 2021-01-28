@@ -13,6 +13,7 @@ public class Main {
 		frame = new Frame();
 		
 		frame.setSize((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
+		//frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setDefaultCloseOperation(3);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(true);

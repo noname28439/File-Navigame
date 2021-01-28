@@ -36,11 +36,12 @@ public class Player {
 	public static int freezetime = 0;
 	
 	public static int shuricanes = 0;
+	public static int hp = 10;
 	
 	public static void draw(Graphics g) {
 		
 		for(int i = 0; i<shuricanes; i++)
-			g.drawImage(Shuricane.skin, i*25+20, 50, 20, 20,  null);
+			g.drawImage(Shuricane.skin, i*25+20, 75 , 20, 20,  null);
 		
 		g.setColor(Color.BLACK);
 		//g.drawRect( x, y, size, size);

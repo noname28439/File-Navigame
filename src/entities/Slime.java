@@ -250,8 +250,15 @@ public class Slime extends Entity{
 		lastx = x;
 		lasty = y;
 		
-		if(Collision.rectToRect(x, y, size, size, Player.x, Player.y, Player.size, Player.size))
-			Player.freezetime = 100;
+		if(Collision.rectToRect(x, y, size, size, Player.x, Player.y, Player.size, Player.size)) {
+			if(Player.freezetime==0) {
+				Player.hp--;
+				if(Player.hp<=0)
+					System.exit(0);
+			}
+			Player.freezetime = 75;
+		}
+			
 		
 		for(FileBox cb : World.szeneFiles) {
 			if(Collision.rectToRect(x, y, size, size, cb.x, cb.y, cb.drawSize, cb.drawSize)) {
